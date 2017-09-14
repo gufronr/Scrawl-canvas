@@ -4099,8 +4099,18 @@ If an argument is supplied, then all currently existing mouse/touch vectors are 
 			}
 		}
 		else {
+			var mices = [];
+			// fix safari ios
+			for (var key in this.mice) {
+				if (this.mice.hasOwnProperty(key)) {
+					if (key.length === 11) {
+						mices.push(key);
+					}
+				}
+			}
+			
 			//item undefined returns a vector, default mouse vector
-			return my.xtGet(this.mice.t0, this.mice.p1, this.mice.pen, this.mice.mouse);
+			return my.xtGet(this.mice.t0 || this.mice[mices[mices.length - 1]], this.mice.p1, this.mice.pen, this.mice.mouse);
 		}
 	};
 	/**
